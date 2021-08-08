@@ -1,0 +1,50 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id             String        @id @default(uuid())
+  name           String
+  password       String
+  role           UserRole
+  Organisation   Organisation? @relation(fields: [organisationId], references: [id])
+  organisationId String?
+}
+
+enum UserRole {
+  Admin
+  Student
+}
+
+model Organisation {
+  id     String  @id @default(uuid())
+  name   String  @unique
+  users  User[]
+  fields Field[]
+}
+
+model Quiz {
+  id      String @id @default(uuid())
+  field   Field  @relation(fields: [fieldId], references: [id])
+  fieldId String
+}
+
+model Field {
+  id            String         @id @default(uuid())
+  questions     Question[]
+  Organisations Organisation[]
+  Quiz          Quiz[]
+}
+
+model Question {
+  id     String  @id @default(uuid())
+  fields Field[]
+}
