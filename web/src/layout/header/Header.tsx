@@ -1,12 +1,5 @@
-import {
-  AppBar,
-  Button,
-  IconButton,
-  Toolbar,
-  Typography,
-} from "@material-ui/core";
+import { AppBar, Button, IconButton, Toolbar } from "@material-ui/core";
 import React from "react";
-import { useLocation } from "react-router-dom";
 
 const Header = () => {
   //   const location = useLocation();

@@ -1,16 +1,19 @@
 import React from "react";
-import logo from "./logo.svg";
+import { Provider } from "react-redux";
 import "./App.css";
+import "./Form.css";
+import Body from "./layout/Body";
 import Header from "./layout/header/Header";
-import MyRouter from "./Router";
+import store from "./store/store";
 
 function App() {
   return (
-    <div className="App">
-      <Header />
-      <MyRouter />
+    <Provider store={store}>
+      <div className="App">
+        <Header />
+        <Body />
 
-      {/* <header className="App-header">
+        {/* <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
           Edit <code>src/App.tsx</code> and save to reload.
@@ -24,7 +27,8 @@ function App() {
           Learn React
         </a>
       </header> */}
-    </div>
+      </div>
+    </Provider>
   );
 }
 
