@@ -2,29 +2,33 @@ import { Button, TextField } from "@material-ui/core";
 import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
-import { useGetJwtQuery, useLazyGetJwtQuery } from "../../store/api";
-import { tryAuth } from "../../store/auth";
+import { useHistory } from "react-router-dom";
+import { tryAuthAsync } from "../../store/auth";
 
 const LoginForm = () => {
-  // //@ts-ignore
-  // const { jwt } = useSelector((state) => state.auth);
+  //@ts-ignore
+  const { jwt } = useSelector((state) => state.auth);
   // console.log(jwt);
-
+  let history = useHistory();
   const {
     register,
     handleSubmit,
-    watch,
     formState: { errors },
   } = useForm();
   const dispatch = useDispatch();
-  const [trigger, result, lastPromiseInfo] = useLazyGetJwtQuery();
-  useEffect(() => {
-    console.log(result);
-  }, [result]);
+  // const [trigger, result, lastPromiseInfo] = useLazyGetJwtQuery();
+  // useEffect(() => {
+  //   console.log(result.data);
+  // }, [result]);
+
   const SubmitHandler = (data) => {
-    trigger(data);
-    dispatch(tryAuth(data));
+    dispatch(tryAuthAsync(data));
   };
+  useEffect(() => {
+    if (jwt) {
+      history.push("/");
+    }
+  }, [jwt]);
   return (
     <form
       onSubmit={handleSubmit(SubmitHandler)}

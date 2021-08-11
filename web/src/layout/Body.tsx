@@ -1,5 +1,11 @@
 import React from "react";
-import MyRouter from "../Router";
+import { Route, Switch } from "react-router-dom";
+import AdminPage from "../pages/AdminPage";
+import HomePage from "../pages/Home";
+import LoginPage from "../pages/Login";
+import QuestionManagementPage from "../pages/QuestionManagementPage";
+import QuizManagementPage from "../pages/QuizManagementPage";
+import UserPage from "../pages/User";
 
 const Body = () => {
   return (
@@ -13,7 +19,18 @@ const Body = () => {
         padding: "3rem",
       }}
     >
-      <MyRouter />
+      <Switch>
+        <Route component={HomePage} path="/" exact />
+        <Route component={LoginPage} path="/login" exact />
+        <Route component={UserPage} path="/user/:id" exact />
+        <Route component={AdminPage} path="/admin/:id" exact />
+        <Route component={QuizManagementPage} path="/quiz-management" exact />
+        <Route
+          component={QuestionManagementPage}
+          path="/Question-management"
+          exact
+        />
+      </Switch>
     </div>
   );
 };

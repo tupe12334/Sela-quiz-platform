@@ -13,7 +13,17 @@ export const serverApi = createApi({
         return url;
       },
     }),
+    getUser: builder.query({
+      query: ({ id, jwt }) => {
+        const url = stringifyUrl({
+          url: `user/${id}`,
+          query: { jwt: jwt },
+        });
+        return url;
+      },
+    }),
   }),
 });
 // Export hooks for usage in functional components, which are// auto-generated based on the defined endpoints
-export const { useGetJwtQuery, useLazyGetJwtQuery } = serverApi;
+export const { useGetJwtQuery, useLazyGetJwtQuery, useGetUserQuery } =
+  serverApi;

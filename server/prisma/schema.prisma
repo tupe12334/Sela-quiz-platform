@@ -16,8 +16,10 @@ model User {
   name           String?
   password       String
   role           UserRole
-  Organisation   Organisation? @relation(fields: [organisationId], references: [id])
+  organisation   Organization? @relation(fields: [organisationId], references: [id])
   organisationId String?
+  fields         Field[]
+  questions      Question[]
 }
 
 enum UserRole {
@@ -25,7 +27,7 @@ enum UserRole {
   Student
 }
 
-model Organisation {
+model Organization {
   id     String  @id @default(uuid())
   name   String  @unique
   users  User[]
@@ -33,19 +35,34 @@ model Organisation {
 }
 
 model Quiz {
-  id      String @id @default(uuid())
-  field   Field  @relation(fields: [fieldId], references: [id])
-  fieldId String
+  id        String   @id @default(uuid())
+  field     Field    @relation(fields: [fieldId], references: [id])
+  fieldId   String
+  name      String   @unique
+  updatedAt DateTime @updatedAt
+  version   Decimal  @default(1.0)
 }
 
 model Field {
   id            String         @id @default(uuid())
+  title         String
   questions     Question[]
-  Organisations Organisation[]
+  organizations Organization[]
   Quiz          Quiz[]
+  users         User[]
 }
 
 model Question {
-  id     String  @id @default(uuid())
-  fields Field[]
+  id        String       @id @default(uuid())
+  numericId Int          @unique @default(autoincrement())
+  name      String       @unique
+  fields    Field[]
+  type      QuestionType
+  updatedAt DateTime     @updatedAt
+  owners    User[]
+}
+
+enum QuestionType {
+  single
+  multiple
 }
