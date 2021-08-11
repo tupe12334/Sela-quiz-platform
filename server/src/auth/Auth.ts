@@ -1,6 +1,7 @@
 import { Router } from "express";
 import { sign, verify } from "jsonwebtoken";
 import { prisma } from "..";
+import { hashSync, compareSync, genSaltSync } from "bcrypt";
 const AuthRouter = Router();
 
 AuthRouter.post("/try", async (req, res, next) => {
@@ -9,14 +10,20 @@ AuthRouter.post("/try", async (req, res, next) => {
     where: { userName: String(user) },
   });
   if (existUser) {
-    const jwt = sign({ user: user }, process.env.JWT_SECRET);
-    console.log(jwt);
-
-    res.json();
+    if (compareSync(String(password), existUser.password)) {
+      const jwt = sign({ user: user }, process.env.SECRET);
+      res.json(jwt);
+    }
+  } else {
+    const salt = genSaltSync();
+    const pass = hashSync(String(password), salt);
+    const newUser = await prisma.user.create({
+      data: { userName: String(user), role: "Student", password: pass },
+    });
+    const jwt = sign({ user: user, id: newUser.id }, process.env.SECRET);
+    res.json(jwt);
   }
-  console.log(user);
-
-  res.json();
+  res.sendStatus(403);
 });
 
 export default AuthRouter;
