@@ -9,7 +9,7 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 const AdminMenu = ({ fields }) => {
-  const [filed, setFiled] = useState(fields[0].title);
+  const [filed, setFiled] = useState(fields[0]?.title || "");
   useEffect(() => {
     console.log(fields);
   }, [fields]);

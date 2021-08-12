@@ -3,7 +3,7 @@ import { verify } from "jsonwebtoken";
 import { prisma } from "..";
 
 const QuestionRouter = Router();
-QuestionRouter.get("/:id", async (req, res) => {
+QuestionRouter.get("/get/:id", async (req, res) => {
   const { jwt } = req.query;
   const { id } = req.params;
   try {

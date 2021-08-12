@@ -23,6 +23,7 @@ AuthRouter.get("/try", async (req, res, next) => {
     const newUser = await prisma.user.create({
       data: { userName: String(user), role: "Student", password: pass },
     });
+
     const jwt = sign(
       { user: user, id: newUser.id, role: existUser.role },
       process.env.SECRET

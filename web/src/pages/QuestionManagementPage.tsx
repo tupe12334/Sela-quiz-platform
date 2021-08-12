@@ -9,10 +9,11 @@ const QuestionManagementPage = () => {
   const { jwt } = useSelector((state) => state.auth);
   //@ts-ignore
   const { data } = useGetUserQuery({ jwt: jwt, id: decode(jwt)?.id });
-  const { questions } = data;
+  console.log(data);
+
   return (
     <div>
-      <QuestionTable questions={questions} />
+      <QuestionTable questions={data?.questions} />
     </div>
   );
 };

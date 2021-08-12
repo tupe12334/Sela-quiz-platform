@@ -12,7 +12,7 @@ const UserPage = () => {
   const { data } = useGetUserQuery({ jwt: jwt, id: decode(jwt)?.id });
   return (
     <div>
-      Welcome {data.user.name ? data.user.name : data.user.userName}
+      Welcome {data?.user?.name ? data?.user?.name : data?.user?.userName}
       <br />
       {
         //@ts-ignore

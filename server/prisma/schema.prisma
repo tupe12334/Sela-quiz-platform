@@ -39,7 +39,7 @@ model Quiz {
   field     Field    @relation(fields: [fieldId], references: [id])
   fieldId   String
   name      String   @unique
-  updatedAt DateTime @updatedAt
+  updatedAt DateTime @default(now()) @updatedAt
   version   Decimal  @default(1.0)
 }
 
@@ -58,8 +58,9 @@ model Question {
   name      String       @unique
   fields    Field[]
   type      QuestionType
-  updatedAt DateTime     @updatedAt
+  updatedAt DateTime     @default(now()) @updatedAt
   owners    User[]
+  text      String
 }
 
 enum QuestionType {
