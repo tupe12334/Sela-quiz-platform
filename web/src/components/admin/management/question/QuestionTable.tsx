@@ -3,7 +3,7 @@ import React from "react";
 import QuestionHeaders from "./QuestionHeaders";
 import QuestionRow from "./QuestionRow";
 
-const QuestionTable = ({ questions }) => {
+const QuestionTable = ({ questions, field }) => {
   console.log(questions);
 
   if (questions) {

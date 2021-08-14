@@ -1,6 +1,7 @@
 import React from "react";
 import { Route, Switch } from "react-router-dom";
 import AdminPage from "../pages/AdminPage";
+import EditQuestionPage from "../pages/EditQuestionPage";
 import HomePage from "../pages/Home";
 import LoginPage from "../pages/Login";
 import QuestionManagementPage from "../pages/QuestionManagementPage";
@@ -30,6 +31,7 @@ const Body = () => {
           path="/Question-management"
           exact
         />
+        <Route component={EditQuestionPage} path="/Question/:id" exact />
       </Switch>
     </div>
   );

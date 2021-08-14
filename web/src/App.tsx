@@ -1,3 +1,4 @@
+import { StylesProvider } from "@material-ui/styles";
 import { createBrowserHistory } from "history";
 import React from "react";
 import { Provider } from "react-redux";
@@ -11,14 +12,16 @@ const history = createBrowserHistory();
 
 function App() {
   return (
-    <Provider store={store}>
-      <Router history={history}>
-        <div className="App">
-          <Header />
-          <Body />
-        </div>
-      </Router>
-    </Provider>
+    <StylesProvider injectFirst>
+      <Provider store={store}>
+        <Router history={history}>
+          <div className="App">
+            <Header />
+            <Body />
+          </div>
+        </Router>
+      </Provider>
+    </StylesProvider>
   );
 }
 

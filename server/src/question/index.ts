@@ -1,3 +1,4 @@
+import { QuestionType } from "@prisma/client";
 import { Router } from "express";
 import { verify } from "jsonwebtoken";
 import { prisma } from "..";
@@ -16,6 +17,10 @@ QuestionRouter.get("/get/:id", async (req, res) => {
     //   .Organisation();
     // res.json({ user: user, fields: fields, organization: Organisation });
   } catch (error) {}
+});
+
+QuestionRouter.get("/types", (req, res) => {
+  return res.json(Object.keys(QuestionType));
 });
 
 export default QuestionRouter;

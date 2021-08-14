@@ -53,14 +53,17 @@ model Field {
 }
 
 model Question {
-  id        String       @id @default(uuid())
-  numericId Int          @unique @default(autoincrement())
-  name      String       @unique
-  fields    Field[]
-  type      QuestionType
-  updatedAt DateTime     @default(now()) @updatedAt
-  owners    User[]
-  text      String
+  id             String       @id @default(uuid())
+  numericId      Int          @unique @default(autoincrement())
+  name           String       @unique
+  fields         Field[]
+  type           QuestionType
+  updatedAt      DateTime     @default(now()) @updatedAt
+  owners         User[]
+  text           String
+  answers        String[]
+  correctAnswers Bytes
+  tags           String[]
 }
 
 enum QuestionType {

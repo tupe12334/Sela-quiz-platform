@@ -16,26 +16,34 @@ const AdminMenu = ({ fields }) => {
   return (
     <div>
       <h2>Main Menu</h2>
-      <div>
-        <Typography> Choose filed of study:</Typography>
-        <select
-          onChange={(e) => {
-            setFiled(String(e.target.value));
-          }}
-        >
-          {fields?.map(
-            (filed, i) =>
-              filed.title && (
-                <option key={i} value={filed.title}>
-                  {filed.title}
-                </option>
-              )
-          )}
-        </select>
-        <Link to="/Question-management">Manage Questions</Link>
-        <Link to="/Quiz-management">Manage Tests</Link>
-        <Link to="/">Reports</Link>
-      </div>
+      {filed ? (
+        <div>
+          <p> Choose filed of study:</p>
+          <select
+            onChange={(e) => {
+              setFiled(String(e.target.value));
+            }}
+          >
+            {fields?.map(
+              (filed, i) =>
+                filed.title && (
+                  <option key={i} value={filed.title}>
+                    {filed.title}
+                  </option>
+                )
+            )}
+          </select>
+          <Link
+            to={{ pathname: `/Question-management`, search: `field=${filed}` }}
+          >
+            Manage Questions
+          </Link>
+          <Link to="/Quiz-management">Manage Tests</Link>
+          <Link to="/">Reports</Link>
+        </div>
+      ) : (
+        <div>No fields are found</div>
+      )}
     </div>
   );
 };

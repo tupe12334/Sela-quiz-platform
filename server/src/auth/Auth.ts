@@ -15,7 +15,7 @@ AuthRouter.get("/try", async (req, res, next) => {
         { user: user, id: existUser.id, role: existUser.role },
         process.env.SECRET
       );
-      res.json(jwt);
+      return res.json(jwt);
     }
   } else {
     const salt = genSaltSync();
@@ -25,11 +25,12 @@ AuthRouter.get("/try", async (req, res, next) => {
     });
 
     const jwt = sign(
-      { user: user, id: newUser.id, role: existUser.role },
+      { user: user, id: newUser.id, role: newUser.role },
       process.env.SECRET
     );
-    res.json(jwt);
+    return res.json(jwt);
   }
+
   res.sendStatus(403);
 });
 

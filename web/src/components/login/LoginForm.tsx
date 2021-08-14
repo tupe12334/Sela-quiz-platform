@@ -8,7 +8,6 @@ import { tryAuthAsync } from "../../store/auth";
 const LoginForm = () => {
   //@ts-ignore
   const { jwt } = useSelector((state) => state.auth);
-  // console.log(jwt);
   let history = useHistory();
   const {
     register,
@@ -16,10 +15,6 @@ const LoginForm = () => {
     formState: { errors },
   } = useForm();
   const dispatch = useDispatch();
-  // const [trigger, result, lastPromiseInfo] = useLazyGetJwtQuery();
-  // useEffect(() => {
-  //   console.log(result.data);
-  // }, [result]);
 
   const SubmitHandler = (data) => {
     dispatch(tryAuthAsync(data));
